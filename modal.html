@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom HTML/Tailwind Modal</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Modal backdrop and transition */
+        .modal-backdrop {
+            /* Fixed position to cover the entire viewport */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000; /* Ensure it's above everything else */
+            background-color: rgba(0, 0, 0, 0.75); /* Dark, semi-transparent overlay */
+            transition: opacity 0.3s ease-in;
+            opacity: 0;
+            visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-backdrop.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content-container {
+            /* Apply the glass effect to the modal window itself */
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            /* transform: scale(0.95); */
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+            /* Ensure the modal content is on top of the backdrop */
+            z-index: 1001; 
+        }
+        
+        .modal-backdrop.open .modal-content-container {
+            /* transform: scale(1); */
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-8 font-sans antialiased">
+
+    <!-- Hero Content (to show content behind the modal) -->
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to the App</h1>
+        <p class="text-gray-700 mb-6">
+            This is the main content of the page. Click the button below to launch a customized modal dialog, which demonstrates the "pop-up" effect. The content behind will be dimmed and blurred.
+        </p>
+        
+        <!-- Modal Trigger Button -->
+        <button id="open-modal-btn" 
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 shadow-md">
+            Launch Action Modal
+        </button>
+
+        <div class="mt-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+            <h3 class="text-xl font-semibold mb-2">Instructions</h3>
+            <ul class="list-disc list-inside text-sm text-gray-600">
+                <li>Click the button above to open the modal.</li>
+                <li>Press the ESC key to close the modal (accessibility feature).</li>
+                <li>Click the 'Cancel' button or the 'X' button to close the modal.</li>
+                <li>Click anywhere on the dark backdrop to dismiss the modal.</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- 
+    ================================================
+    THE MODAL STRUCTURE 
+    ================================================
+    -->
+    <div id="custom-modal" class="modal-backdrop" >
+
+        <!-- Modal Content Container -->
+        <!-- The click listener on the backdrop prevents clicks inside the content from closing the modal -->
+        <div class="modal-content-container w-full max-w-lg mx-4 p-0 rounded-2xl overflow-hidden" onclick="event.stopPropagation()">
+            
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-5 border-b border-gray-300/30">
+                <h3 id="modal-title" class="text-2xl font-semibold text-white">
+                    Confirm Your Action
+                </h3>
+                <button onclick="closeModal()" class="text-gray-200 hover:text-white transition duration-200 p-1 rounded-full hover:bg-white/10" aria-label="Close modal">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 text-gray-200">
+                <p id="modal-description" class="mb-4">
+                    Please confirm if you want to proceed with this important action. This process is irreversible once started.
+                </p>
+                <div class="space-y-3">
+                    <label for="action-input" class="block text-sm font-medium">Enter Confirmation Code:</label>
+                    <input type="text" id="action-input" class="w-full p-2 border border-gray-600/50 rounded-lg bg-gray-800/50 focus:ring-indigo-500 focus:border-indigo-500 text-white" placeholder="ACTION-123">
+                </div>
+            </div>
+
+            <!-- Modal Footer (Action Buttons) -->
+            <div class="flex justify-end space-x-3 p-5 border-t border-gray-300/30 bg-gray-800/10">
+                <button onclick="closeModal()" 
+                        class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300">
+                    Cancel
+                </button>
+                <button onclick="takeAction()" 
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 shadow-lg">
+                    Confirm & Proceed
+                </button>
+            </div>
+
+        </div>
+    </div>
+    
+    <script>
+        const modal = document.getElementById('custom-modal');
+        const openBtn = document.getElementById('open-modal-btn');
+        const body = document.body;
+
+        /**
+         * Opens the modal and handles focus management for accessibility.
+         */
+        function openModal() {
+            modal.classList.add('open');
+            body.classList.add('overflow-hidden'); // Prevent scrolling the main page
+            modal.focus(); // Set focus to the modal for screen readers
+        }
+
+        /**
+         * Closes the modal.
+         */
+        function closeModal() {
+            modal.classList.remove('open');
+            body.classList.remove('overflow-hidden');
+            openBtn.focus(); // Return focus to the trigger button
+        }
+
+        /**
+         * The function to execute when the primary action button is clicked.
+         */
+        function takeAction() {
+            const confirmationCode = document.getElementById('action-input').value;
+            console.log("Action Confirmed! Code Entered:", confirmationCode);
+            alert(`Action triggered successfully with code: ${confirmationCode}`);
+            closeModal();
+        }
+
+        // --- Event Listeners ---
+
+        // 1. Open Button Click
+        openBtn.addEventListener('click', openModal);
+
+        // 2. Close by Backdrop Click
+        // modal.addEventListener('click', closeModal);
+
+        // 3. Close by ESC Key (Accessibility)
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && modal.classList.contains('open')) {
+                closeModal();
+            }
+        });
+
+        // Use a basic alert function fallback since we prohibit alert()
+        // In a real application, replace this with a custom success message box.
+        function alert(message) {
+             const messageBox = document.createElement('div');
+             messageBox.className = 'fixed top-4 right-4 bg-green-500 text-white p-3 rounded-lg shadow-xl z-[9999] transition duration-500 transform translate-x-full';
+             messageBox.textContent = message;
+             document.body.appendChild(messageBox);
+             
+             // Animate in
+             setTimeout(() => {
+                messageBox.classList.remove('translate-x-full');
+             }, 10);
+
+             // Animate out and remove
+             setTimeout(() => {
+                messageBox.classList.add('translate-x-full');
+                setTimeout(() => messageBox.remove(), 500);
+             }, 3000);
+        }
+
+        // Set initial state for accessibility
+        modal.setAttribute('tabindex', '-1');
+    </script>
+</body>
+</html>

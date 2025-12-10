@@ -1,0 +1,14 @@
+1- call button ✅
+2- email button✅
+3- fav button ✅
+4- emergency button ✅
+5- edit button ✅
+6- delete button✅
+7- search method✅
+8- photo handler in fav & emergency & maincontact continer✅
+9- make the two side equal
+10- make it dark mode and light mode✅
+11- make some optimize to the code 
+12- Authentication ✅
+13- show the dublicated number✅
+14- make the empaty container✅

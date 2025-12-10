@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap -->
+   <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/media.css" />
+
+
+<body>
+    <!-- header section -->
+    <header>
+        <nav class="shadow w-100  z-3  px-5 py-2 d-flex align-items-center justify-content-between position-fixed">
+            <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-address-book fs-6 p-3 text-white rounded-3 align-self-center"></i>
+                <div class="flex-column flex g-1 align-self-center">
+                    <h1 class=" fw-bolder m-0">Contact<span class="">Hub</span></h1>
+                    <p class="text-secondary m-0 d-lg-block d-none ">Smart Contact Manager</p>
+                </div>
+            </div>
+            <div class="header-contact-group d-flex gap-lg-5 gap-2 justify-content-around align-items-center">
+                <button id="theme-toggle-btn" class="btn">
+                    <i class="fa-solid fa-sun text-warning bg-transparent fs-3 p-0 m-0 d-none"></i>
+                    <i class="fa-solid fa-moon text-secondary bg-transparent fs-3 p-0 m-0 d-none"></i>
+                </button>
+                <button id="contactBtn" type="button"
+                    class="rounded-3 p-2 p-lg-2 px-lg-3 text-white fw-bolder d-flex gap-2">+ Add <span
+                        class="d-none d-lg-block">Contact</span> </button>
+                <i class="fa-solid fa-bell bg-transparent fs-5 d-none d-lg-block"></i>
+                <i class="fa-solid fa-gear bg-transparent fs-5 d-none d-lg-block"></i>
+                <div>
+                    <img src="./images/team-2-1-350x400.jpg" class="w-100 rounded-3" alt="user-avatar">
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    <!-- ================================= -->
+
+
+    <!-- main section -->
+    <main>
+        <div class="container-fluid my-4">
+            <div class="row g-3">
+
+                <!-- contact data section  -->
+                <div class="deatail-container col-lg-4 col-md-4 col-sm-6 ">
+                    <div class="inner shadow p-4 rounded-4 d-flex gap-2 align-items-center">
+                        <i class="fa-solid fa-users p-3 bg-primary text-white rounded-3 align-self-center"></i>
+                        <div>
+                            <p class="fw-bolder text-secondary m-0">Total</p>
+                            <p class="m-0 fw-bolder fs-4" id="totalNumOfContact"></p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="deatail-container col-lg-4 col-md-4 col-sm-6">
+                    <div class="inner shadow p-4 rounded-4 d-flex gap-2 align-items-center">
+                        <i class="fa-solid fa-star p-3 bg-warning text-white rounded-3"></i>
+                        <div>
+                            <p class="fw-bolder text-secondary m-0">Favorites</p>
+                            <p class="m-0 fw-bolder fs-4" id="totalNumOfFav"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="deatail-container col-lg-4 col-md-4 col-sm-6">
+                    <div class="inner shadow p-4 rounded-4 d-flex gap-2 align-items-center">
+                        <i class="fa-solid fa-heart-pulse p-3 bg-danger text-white rounded-3"></i>
+                        <div>
+                            <p class="fw-bolder text-secondary m-0">Emergency</p>
+                            <p class="m-0 fw-bolder fs-4" id="totalNumOfEmergency"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ========================  -->
+
+                <!-- search section and display items    -->
+                <div class="col-lg-9 col-12 ">
+                    <div class="inner shadow p-4 rounded-4 d-flex flex-column gap-2  text-start">
+                        <h1 class="m-0">All Contacts</h1>
+                        <p class="fw-bold text-secondary m-0">Manage and organize your 6 contacts</p>
+                        <div class="search-container my-4">
+                            <i class="fa-solid fa-magnifying-glass search-icon-left"></i>
+                            <input type="text" id="searchForContact" placeholder="Search by name ,phone or email..."
+                                class="form-control">
+                        </div>
+                        <div class="number-container">
+                            <div id="contacts-container" class="row g-2">
+                                <!-- <div class="col-12 d-flex flex-column justify-content-center align-items-center p-5 m-5">
+                                    <i
+                                        class="fa-solid fa-address-book  p-3 text-secondary bg-secondary-subtle rounded-3 align-self-center fs-1"></i>
+                                        <p>No contacts found</p>
+                                        <p>Click "Add Contact" to get started</p>
+
+                                </div> -->
+                                <!-- <div class="number-card col-lg-6 col-md-6 col-12 ">
+                                    <div class="inner shadow bg-white rounded-3 ">
+                                        <div class="p-3 d-flex flex-column gap-2">
+                                            <div class="d-flex gap-3">
+                                                <div
+                                                    class="icon-tips position-relative name-box fs-4  text-white fw-bolder p-3 bg-primary rounded-3 align-self-center d-flex justify-content-center align-items-center d-inline-block">
+
+                                                    <i
+                                                        class="fa-solid d-flex justify-content-center align-items-center fa-heart-pulse position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger"></i>
+                                                    <i
+                                                        class="fa-solid d-flex justify-content-center align-items-center fa-star position-absolute top-100 start-100 translate-middle badge rounded-circle bg-warning"></i>
+
+                                                </div>
+                                                <div>
+                                                    <h5 class="m-0">khaled refat</h5>
+                                                    <div class="icon-container d-flex gap-1">
+                                                        <i
+                                                            class="fa-solid fa-phone text-primary p-2 bg-primary bg-opacity-25 rounded-3 align-self-center"></i>
+                                                        <p class="m-0">01097873807</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="icon-container d-flex gap-1">
+                                                <i
+                                                    class="fa-solid fa-envelope text-danger p-2 bg-danger bg-opacity-25 rounded-3 align-self-center"></i>
+                                                <p class="m-0">zomokremix@gmail.com</p>
+                                            </div>
+
+                                            <div class="icon-container d-flex gap-1">
+                                                <i
+                                                    class="fa-solid fa-location-dot text-success p-2 bg-success bg-opacity-25 rounded-3 align-self-center"></i>
+                                                <p class="m-0">123 .st</p>
+                                            </div>
+
+                                            <div class="inforamtion-icons d-flex gap-2">
+                                                <div
+                                                    class=" rounded-3 bg-danger bg-opacity-10 d-inline-block text-danger p-1 mb-2">
+                                                    <i class="fa-solid fa-heart-pulse p-1"></i><span>Emergency</span>
+                                                </div>
+
+                                                <div
+                                                    class=" rounded-3 bg-danger bg-opacity-10 d-inline-block text-danger p-1 mb-2">
+                                                    <i
+                                                        class="fa-solid fa-circle-question p-1"></i><span>Emergency</span>
+                                                </div>
+
+
+                                                <div
+                                                    class=" rounded-3 bg-danger bg-opacity-10 d-inline-block text-danger p-1 mb-2">
+                                                    <i
+                                                        class="fa-solid fa-circle-question p-1"></i><span>Emergency</span>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div
+                                            class="button-container bg-secondary bg-opacity-10 w-100 d-flex justify-content-between p-2">
+                                            <div class="button-left d-flex gap-1">
+                                                <a href="tel:+15551234567" class="m-0 p-0 border-0"><i
+                                                        class="fa-solid fa-phone align-items-center p-2 bg-success text-success bg-opacity-25 rounded-3"></i></a>
+
+                                                <a  href="mailto:support@example.com" class="m-0 p-0 border-0"><i
+                                                        class="fa-solid fa-envelope align-items-center p-2 bg-danger bg-opacity-25  text-danger rounded-3"></i></a>
+                                            </div>
+                                            <div class="button-right">
+                                                <button class="m-0 p-0 border-0"><i
+                                                        class="fa-solid fa-star align-items-center p-2 bg-danger bg-opacity-25  text-danger rounded-3"></i></button>
+                                                <button class="m-0 p-0 border-0"><i
+                                                        class="fa-solid fa-heart align-items-center p-2 bg-danger bg-opacity-25  text-danger rounded-3"></i></button>
+                                                <button class="m-0 p-0 border-0"><i
+                                                        class="fa-solid fa-pen align-items-center p-2 bg-danger bg-opacity-25  text-danger rounded-3"></i></button>
+                                                <button class="m-0 p-0 border-0"><i
+                                                        class="fa-solid fa-trash-can align-items-center p-2 bg-danger bg-opacity-25  text-danger rounded-3"></i></button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ================================    -->
+
+                <!-- fav&emergancy section   -->
+                <div class="col-lg-3 col-12  d-flex flex-column gap-3">
+                    <div class="faviorit-container my-2">
+                        <div class="d-flex gap-2 rounded-top-4  align-items-center bg-warning bg-opacity-10 p-3">
+                            <i class="fa-solid fa-star p-3 bg-warning text-white rounded-3"></i>
+                            <div>
+                                <p class="fw-bolder m-0 fs-6 ">Favorites</p>
+                                <p class="m-0 fw-bolder text-secondary">Quick access to starred contacts</p>
+                            </div>
+                        </div>
+                        <div class="inner shadow  rounded-4 pb-2" id="favContainer">
+
+                        </div>
+                    </div>
+
+                    <div class="faviorit-container my-2">
+                        <div class="d-flex gap-2 rounded-top-4  align-items-center bg-danger bg-opacity-10 p-3">
+                            <i class="fa-solid fa-heart-pulse p-3 bg-danger text-white rounded-3"></i>
+                            <div>
+                                <p class="fw-bolder m-0 fs-6 ">Emergency</p>
+                                <p class="m-0 fw-bolder text-secondary">Important contacts for urgent calls</p>
+                            </div>
+                        </div>
+                        <div class="inner shadow  rounded-4 pb-2" id="emergencyContainer">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="contact-modal" id="contact-modal">
+
+            <div class="contact-modal-container mx-auto rounded-4 bg-white" id="contact-modal-container">
+                <div
+                    class="modal-nav bg-white rounded-top-4  d-flex align-items-center py-2 justify-content-between mx-auto px-3 border-bottom border-1 border-secondary">
+                    <h3 class="fw-bolder m-0">Add New Contact</h3>
+                    <button class=" btn align-self-center" id="close-modal"><i
+                            class="fa-solid fa-x text-secondary"></i></button>
+                </div>
+
+                <div class="change-photo-container p-3 d-flex flex-column gap-2 justify-content-center">
+                    <i class="fa-solid fa-user rounded-circle p-5 fs-1 bg-primary align-self-center text-white"></i>
+                    <input id="contact-photo" type="file" class="d-none">
+                    <label for="contact-photo" class="btn align-self-center bg-secondary bg-opacity-10"><i
+                            class="fa-solid fa-camera"></i> Change Photo</label>
+                </div>
+                <div class="inputs-container">
+                    <div class="container">
+                        <div class="mb-3">
+                            <label for="nameInput" class="form-label">Full Name <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control bg-secondary bg-opacity-10" id="nameInput"
+                                placeholder="Enter Full Name">
+                            <p id="nameWarning" class="m-0 p-0 text-danger fw-bolder d-none">Name should contain only
+                                letters and spaces (2-50 characters)</p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numberInput" class="form-label ">Phone Number <span
+                                    class="text-danger">*</span></label>
+                            <input id="numberInput" type="number" class="form-control bg-secondary bg-opacity-10"
+                                placeholder="e.g.012345678">
+                            <p id="phoneWarning" class="m-0 p-0 text-danger fw-bolder d-none">Please enter a valid
+                                Egyptian phone number</p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailInput" class="form-label">Email Address</label>
+                            <input id="emailInput" type="email" class="form-control bg-secondary bg-opacity-10"
+                                placeholder="name@example.com">
+                            <p id="emailWarning" class="m-0 p-0 text-danger fw-bolder d-none">Please enter a valid email
+                                address</p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addressInput" class="form-label">Address</label>
+                            <input id="addressInput" type="text" class="form-control bg-secondary bg-opacity-10"
+                                placeholder="Enter Address">
+                        </div>
+                        <div class="mb-3">
+                            <label for="selectGroup" class="form-label">Group</label>
+                            <select id="selectGroup" class="form-select" class="bg-secondary bg-opacity-10">
+                                <option selected>Select Group</option>
+                                <option value="Family">Family</option>
+                                <option value="Friends">Friends</option>
+                                <option value="Work">Work</option>
+                                <option value="School">School</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="notesInput" class="form-label">Notes</label>
+                            <textarea id="notesInput" class="form-control bg-secondary bg-opacity-10"
+                                placeholder="Add notes about this contact"></textarea>
+                        </div>
+                        <div class="my-3 d-flex gap-3">
+                            <div class="form-check">
+                                <input id="favInput" class="form-check-input" type="checkbox" value="">
+                                <label class="form-check-label" for="favInput">
+                                    <i class="fa-solid fa-star text-warning"></i> favorites
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="emergencyInput" class="form-check-input" type="checkbox" value="">
+                                <label class="form-check-label" for="emergencyInput">
+                                    <i class="fa-solid fa-heart-pulse text-danger"></i> emergency
+                                </label>
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div class="row">
+                                <button id="cancelBtn"
+                                    class="btn bg-secondary-subtle col mx-2 text-dark ">Cancel</button>
+                                <button id="saveBtn" class="btn btn-primary col mx-2 "><i class="fa-solid fa-check"></i>
+                                    Save
+                                    Contact</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
